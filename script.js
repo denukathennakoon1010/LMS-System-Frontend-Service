@@ -3,7 +3,7 @@
 // ============================================
 
 // ✅ ONLINE (Render.com) - මෙය ඔබගේ Render URL එකට වෙනස් කරන්න
-const API_URL = 'https://science-exam-backend.onrender.com/api/auth';
+const API_URL = 'lms-system-backend-service-production.up.railway.app/api/auth';
 
 // ❌ LOCAL (Development) - මෙය Local එකේ Test කරන්න ඕනේ නම් මෙය භාවිතා කරන්න
 // const API_URL = 'http://localhost:5000/api/auth';
