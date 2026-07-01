@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Denuka Thennakoon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .user-info span {
+            color: #555;
+            font-weight: 500;
+        }
+        .logout-btn {
+            padding: 10px 25px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .logout-btn:hover {
+            background: #ff6b81;
+            transform: scale(1.05);
+        }
+        .card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .card p {
+            color: #666;
+            margin: 5px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge.admin {
+            background: #ff6b81;
+        }
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .exam-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+        .exam-card h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .exam-card p {
+            color: #888;
+            font-size: 14px;
+            margin: 3px 0;
+        }
+        .exam-btn {
+            margin-top: 10px;
+            padding: 8px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .exam-btn:hover {
+            background: #764ba2;
+        }
+        .admin-panel {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .admin-panel h3 {
+            color: #856404;
+        }
+        .admin-panel .btn {
+            padding: 10px 20px;
+            background: #ffc107;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .admin-panel .btn:hover {
+            background: #e0a800;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .stat-box .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        .stat-box .label {
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 Dashboard</h1>
+            <div class="user-info">
+                <span id="userName">User</span>
+                <span id="userRole" class="badge">Student</span>
+                <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+            </div>
+        </div>
+
+        <!-- User Profile Card -->
+        <div class="card">
+            <h3>👤 Welcome, <span id="fullName">User</span>!</h3>
+            <p>📧 Email: <span id="userEmail">user@email.com</span></p>
+            <p>📚 Class: <span id="userClass">Not specified</span></p>
+            <p>👑 Role: <span id="userRoleText">Student</span></p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-box">
+                <div class="number" id="examCount">3</div>
+                <div class="label">📝 Available Exams</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="completedCount">1</div>
+                <div class="label">✅ Completed</div>
+            </div>
+            <div class="stat-box">
+                <div class="number" id="avgScore">85%</div>
+                <div class="label">📊 Average Score</div>
+            </div>
+        </div>
+
+        <!-- Exams Section -->
+        <h3>📝 Available Exams</h3>
+        <div class="exam-grid" id="examGrid">
+            <div class="exam-card">
+                <h4>Science - Chapter 1</h4>
+                <p>📅 Due: 2025-01-20</p>
+                <p>⏱️ Time: 45 minutes</p>
+                <p>📊 Questions: 20</p>
+                <button class="exam-btn" onclick="startExam('Chapter 1')">Start Exam</button>
+            </div>
+            <div class="exam-card">
+                <h4>Science - Chapter 2</h4>
+                <p>📅 Due: 2025-01-27</p>
+                <p>⏱️ Time: 60 minutes</p>
+                <p>📊 Questions: 25</p>
+                <button class="exam-btn" onclick="startExam('Chapter 2')">Start Exam</button>
+            </div>
+            <div class="exam-card">
+                <h4>Science - Chapter 3</h4>
+                <p>📅 Due: 2025-02-03</p>
+                <p>⏱️ Time: 30 minutes</p>
+                <p>📊 Questions: 15</p>
+                <button class="exam-btn" onclick="startExam('Chapter 3')">Start Exam</button>
+            </div>
+        </div>
+
+        <!-- Admin Panel (only visible for admin) -->
+        <div id="adminPanel" class="admin-panel" style="display:none;">
+            <h3>🔧 Admin Panel</h3>
+            <p>Manage exams, questions, and users.</p>
+            <button class="btn" onclick="alert('📤 Upload Exam Page Coming Soon!')">📤 Upload Exam</button>
+            <button class="btn" onclick="alert('👥 Manage Users Coming Soon!')">👥 Manage Users</button>
+            <button class="btn" onclick="alert('📊 View Results Coming Soon!')">📊 View Results</button>
+            <button class="btn" onclick="alert('📝 Create Question Coming Soon!')">📝 Create Question</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 🔐 Check Authentication
+        // ============================================
+        const token = localStorage.getItem('token');
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+
+        if (!token || !userData.id) {
+            // Not logged in - redirect to login
+            window.location.href = 'index.html';
+        }
+
+        // ============================================
+        // 👤 Display User Info
+        // ============================================
+        document.getElementById('fullName').textContent = userData.fullName || 'User';
+        document.getElementById('userName').textContent = userData.username || 'User';
+        document.getElementById('userEmail').textContent = userData.email || 'No email';
+        document.getElementById('userClass').textContent = userData.class || 'Not specified';
+        document.getElementById('userRoleText').textContent = userData.role === 'admin' ? '👑 Admin' : '🎓 Student';
+
+        // Show role badge
+        const roleBadge = document.getElementById('userRole');
+        if (userData.role === 'admin') {
+            roleBadge.textContent = '👑 Admin';
+            roleBadge.classList.add('admin');
+            // Show admin panel
+            document.getElementById('adminPanel').style.display = 'block';
+        } else {
+            roleBadge.textContent = '🎓 Student';
+        }
+
+        // ============================================
+        // 🚪 Logout Function
+        // ============================================
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ============================================
+        // 📡 Fetch User Data from Server (Optional)
+        // ============================================
+        async function fetchUserData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    // Update user data if changed
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        }
+
+        // Fetch fresh user data
+        fetchUserData();
+
+        // ============================================
+        // 📝 Start Exam Function
+        // ============================================
+        function startExam(chapter) {
+            alert(`🎯 Starting exam: Science - ${chapter}\n\n📝 This feature is coming soon!\nYou will be able to answer questions and get results automatically.`);
+        }
+    </script>
+</body>
+</html>
